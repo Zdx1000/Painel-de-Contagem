@@ -332,7 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	document.addEventListener("click", (event) => {
-		if (graphContextMenu?.hidden) {
+		if (!graphContextMenu || graphContextMenu.hidden) {
 			return;
 		}
 		if (graphContextMenu.contains(event.target)) {
