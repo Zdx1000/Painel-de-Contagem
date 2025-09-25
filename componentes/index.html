@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventário Rotativo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app">
+        <header class="app__header">
+            <h1>Inventário Rotativo &ndash; Painel de Contagem</h1>
+            <div class="header__actions">
+                <button id="config-btn" class="btn btn--ghost" type="button">Configurações</button>
+                <button id="parameters-btn" class="btn btn--ghost" type="button">Parâmetros dias</button>
+                <button id="save-dashboard" class="btn btn--primary" type="button">Salvar dashboard</button>
+            </div>
+        </header>
+
+        <section class="cards-grid cards-grid--top" id="dashboard-top-cards">
+            <article class="card card--highlight" data-field="dataAtualizacao">
+                <label for="data-atualizacao">Data Atualização</label>
+                <input id="data-atualizacao" name="dataAtualizacao" type="text" readonly placeholder="dd/mm/aaaa">
+            </article>
+            <article class="card card--warehouse" data-field="armazem">
+                <label for="armazem">Armazém</label>
+                <input id="armazem" name="armazem" type="text" value="CD - UDI" readonly>
+            </article>
+            <article class="card card--goal" data-field="metaContagemDiaria">
+                <label for="meta-contagem-diaria">Meta contagem diária para finalizar</label>
+                <input id="meta-contagem-diaria" name="metaContagemDiaria" type="number" min="0" step="1" placeholder="0" readonly>
+            </article>
+            <article class="card card--outlook" data-field="previsaoTermino">
+                <label for="previsao-termino">Previsão de término</label>
+                <input id="previsao-termino" name="previsaoTermino" type="date">
+            </article>
+        </section>
+
+        <section class="cards-grid" id="dashboard-cards">
+            <article class="card" data-field="totalSkusEstoque">
+                <label for="total-skus-estoque">Total SKU's com estoque</label>
+                <input id="total-skus-estoque" name="totalSkusEstoque" type="number" min="0" step="1" placeholder="0" readonly>
+            </article>
+            <article class="card" data-field="skusRestanteSegunda">
+                <label for="skus-restante-segunda">SKU's restante p/ contar 2ª contagem</label>
+                <input id="skus-restante-segunda" name="skusRestanteSegunda" type="number" min="0" step="1" placeholder="0" readonly>
+            </article>
+            <article class="card" data-field="skusSegundaConcluida">
+                <label for="skus-segunda-concluida">SKU's - 2ª contagem concluída</label>
+                <input id="skus-segunda-concluida" name="skusSegundaConcluida" type="number" min="0" step="1" placeholder="0" readonly>
+            </article>
+            <article class="card" data-field="percentualSemContagem">
+                <label for="percentual-sem-contagem">% sem contagem (1ª)</label>
+                <input id="percentual-sem-contagem" name="percentualSemContagem" type="number" min="0" max="100" step="0.01" placeholder="0" readonly>
+            </article>
+            <article class="card" data-field="percentualContadoSegunda">
+                <label for="percentual-contado-segunda">% contado 2ª contagem</label>
+                <input id="percentual-contado-segunda" name="percentualContadoSegunda" type="number" min="0" max="100" step="0.01" placeholder="0" readonly>
+            </article>
+            <article class="card" data-field="percentualSemContagemSegunda">
+                <label for="percentual-sem-contagem-segunda">% sem contagem (2ª)</label>
+                 <input id="percentual-sem-contagem-segunda" name="percentualSemContagemSegunda" type="number" min="0" max="100" step="0.01" placeholder="0" readonly>
+            </article>
+            <article class="card" data-field="skusRestantePrimeira">
+                <label for="skus-restante-primeira">SKU's restante p/ contar 1ª contagem</label>
+                 <input id="skus-restante-primeira" name="skusRestantePrimeira" type="number" min="0" step="1" placeholder="0" readonly>
+            </article>
+        </section>
+
+        <section class="graphics" aria-labelledby="graphics-title">
+            <div class="graphics__grid">
+                <div class="graph-placeholder" id="grafico-1" data-graph-key="grafico1" role="figure" aria-labelledby="grafico-1-label" tabindex="0">
+                    <header class="graph-placeholder__controls">
+                        <h3 id="grafico-1-label">Espaço reservado para gráfico 1</h3>
+                        <div class="graph-placeholder__buttons">
+                            <button type="button" class="btn btn--ghost graph-placeholder__btn" data-graph-action="upload" data-target="grafico-1-input">Carregar imagem</button>
+                            <button type="button" class="btn btn--ghost graph-placeholder__btn graph-placeholder__btn--remove" data-graph-action="clear" hidden>Remover</button>
+                        </div>
+                    </header>
+                    <input id="grafico-1-input" class="graph-placeholder__input" type="file" accept="image/png,image/jpeg,image/jpg,image/svg+xml,image/webp" hidden>
+                    <div class="graph-placeholder__content" data-graph-content>
+                        <span class="graph-placeholder__hint">Solte aqui uma imagem (PNG, JPG ou SVG) ou use o botão acima.</span>
+                    </div>
+                </div>
+                <div class="graph-placeholder" id="grafico-2" data-graph-key="grafico2" role="figure" aria-labelledby="grafico-2-label" tabindex="0">
+                    <header class="graph-placeholder__controls">
+                        <h3 id="grafico-2-label">Espaço reservado para gráfico 2</h3>
+                        <div class="graph-placeholder__buttons">
+                            <button type="button" class="btn btn--ghost graph-placeholder__btn" data-graph-action="upload" data-target="grafico-2-input">Carregar imagem</button>
+                            <button type="button" class="btn btn--ghost graph-placeholder__btn graph-placeholder__btn--remove" data-graph-action="clear" hidden>Remover</button>
+                        </div>
+                    </header>
+                    <input id="grafico-2-input" class="graph-placeholder__input" type="file" accept="image/png,image/jpeg,image/jpg,image/svg+xml,image/webp" hidden>
+                    <div class="graph-placeholder__content" data-graph-content>
+                        <span class="graph-placeholder__hint">Solte aqui uma imagem (PNG, JPG ou SVG) ou use o botão acima.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <dialog id="config-modal" class="config-modal">
+        <form id="config-form" method="dialog" class="config-modal__content">
+            <header class="config-modal__header">
+                <h2>Configurações de contagem</h2>
+                <button type="button" id="close-config" class="btn btn--ghost">Fechar</button>
+            </header>
+            <div class="config-modal__grid">
+                <label>
+                    <span>Finalizado 2ª contagem</span>
+                    <input id="config-finalizado-segunda" name="finalizadoSegundaContagem" type="number" min="0" step="1" placeholder="0">
+                </label>
+                <label>
+                    <span>Finalizado 1ª contagem</span>
+                    <input id="config-finalizado-primeira" name="finalizadoPrimeiraContagem" type="number" min="0" step="1" placeholder="0">
+                </label>
+                <label>
+                    <span>Itens novos</span>
+                    <input id="config-itens-novos" name="itensNovos" type="number" min="0" step="1" placeholder="0">
+                </label>
+                <label>
+                    <span>Total</span>
+                    <input id="config-total" name="total" type="number" min="0" step="1" placeholder="0" readonly>
+                </label>
+            </div>
+            <footer class="config-modal__footer">
+                <button type="submit" class="btn btn--primary">Salvar configurações</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <dialog id="parameters-modal" class="config-modal">
+        <form id="parameters-form" method="dialog" class="config-modal__content">
+            <header class="config-modal__header">
+                <h2>Parâmetros dias</h2>
+                <button type="button" id="close-parameters" class="btn btn--ghost">Fechar</button>
+            </header>
+            <div class="config-modal__grid">
+                <label>
+                    <span>Dias normal</span>
+                    <input id="dias-normal" name="diasNormal" type="number" min="0" step="1" placeholder="0" readonly>
+                </label>
+                <label>
+                    <span>Dias úteis</span>
+                    <input id="dias-uteis" name="diasUteis" type="number" min="0" step="1" placeholder="0" readonly>
+                </label>
+            </div>
+            <footer class="config-modal__footer">
+                <button type="submit" class="btn btn--primary">Salvar parâmetros</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <script src="scripts.js" defer></script>
+</body>
+</html>
