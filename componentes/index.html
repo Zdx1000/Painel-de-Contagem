@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventário Rotativo</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
 </head>
 <body>
     <main class="app">
@@ -17,25 +18,41 @@
             <div class="header__actions">
                 <button id="config-btn" class="btn btn--ghost" type="button">Configurações</button>
                 <button id="parameters-btn" class="btn btn--ghost" type="button">Parâmetros dias</button>
-                <button id="save-dashboard" class="btn btn--primary" type="button">Salvar dashboard</button>
+                <button id="save-dashboard" class="btn btn--primary btn--save" type="button">
+                    <span class="btn__icon" aria-hidden="true">💾</span>
+                    <span class="btn__label">Salvar dashboard</span>
+                    <span class="btn__glow" aria-hidden="true"></span>
+                </button>
             </div>
         </header>
 
         <section class="cards-grid cards-grid--top" id="dashboard-top-cards">
             <article class="card card--highlight" data-field="dataAtualizacao">
-                <label for="data-atualizacao">Data Atualização</label>
+                <label for="data-atualizacao" class="card__label">
+                    <i class="card__icon fi fi-rr-calendar-clock" aria-hidden="true"></i>
+                    <span class="card__label-text">Data Atualização</span>
+                </label>
                 <input id="data-atualizacao" name="dataAtualizacao" type="text" readonly placeholder="dd/mm/aaaa">
             </article>
             <article class="card card--warehouse" data-field="armazem">
-                <label for="armazem">Armazém</label>
+                <label for="armazem" class="card__label">
+                    <i class="card__icon fi fi-rr-building" aria-hidden="true"></i>
+                    <span class="card__label-text">Armazém</span>
+                </label>
                 <input id="armazem" name="armazem" type="text" value="CD - UDI" readonly>
             </article>
             <article class="card card--goal" data-field="metaContagemDiaria">
-                <label for="meta-contagem-diaria">Meta contagem diária para finalizar</label>
+                <label for="meta-contagem-diaria" class="card__label">
+                    <i class="card__icon fi fi-rr-bullseye-arrow" aria-hidden="true"></i>
+                    <span class="card__label-text">Meta contagem diária para finalizar</span>
+                </label>
                 <input id="meta-contagem-diaria" name="metaContagemDiaria" type="number" min="0" step="1" placeholder="0" readonly>
             </article>
             <article class="card card--outlook" data-field="previsaoTermino">
-                <label for="previsao-termino">Previsão de término</label>
+                <label for="previsao-termino" class="card__label">
+                    <i class="card__icon fi fi-rr-calendar" aria-hidden="true"></i>
+                    <span class="card__label-text">Previsão de término</span>
+                </label>
                 <input id="previsao-termino" name="previsaoTermino" type="date">
             </article>
         </section>
@@ -106,9 +123,33 @@
     <dialog id="config-modal" class="config-modal">
         <form id="config-form" method="dialog" class="config-modal__content">
             <header class="config-modal__header">
-                <h2>Configurações de contagem</h2>
-                <button type="button" id="close-config" class="btn btn--ghost">Fechar</button>
+                <div class="config-modal__title">
+                    <span class="config-modal__badge">Configuração ativa</span>
+
+                </div>
+                <button type="button" id="close-config" class="btn btn--ghost" aria-label="Fechar configurações">
+                    Fechar
+                </button>
             </header>
+
+            <section class="config-modal__overview" aria-label="Resumo das configurações">
+                <div class="config-modal__highlight" role="group" aria-labelledby="config-total-label">
+                    <div class="config-modal__highlight-heading">
+                        <span class="config-modal__highlight-icon" aria-hidden="true">📊</span>
+                        <div>
+                            <p id="config-total-label" class="config-modal__highlight-label">Total projetado</p>
+                            <p class="config-modal__highlight-help">Somatório automático das contagens informadas.</p>
+                        </div>
+                    </div>
+                    <input id="config-total" name="total" type="number" min="0" step="1" placeholder="0" readonly>
+                </div>
+                <ul class="config-modal__tips" aria-label="Sugestões de preenchimento">
+                    <li>Valores podem ser atualizados a qualquer momento.</li>
+                    <li>Os campos aceitam apenas números inteiros.</li>
+                    <li>As metas diárias e previsões serão recalculadas automaticamente.</li>
+                </ul>
+            </section>
+
             <div class="config-modal__grid">
                 <label>
                     <span>Finalizado 2ª contagem</span>
@@ -122,11 +163,8 @@
                     <span>Itens novos</span>
                     <input id="config-itens-novos" name="itensNovos" type="number" min="0" step="1" placeholder="0">
                 </label>
-                <label>
-                    <span>Total</span>
-                    <input id="config-total" name="total" type="number" min="0" step="1" placeholder="0" readonly>
-                </label>
             </div>
+
             <footer class="config-modal__footer">
                 <button type="submit" class="btn btn--primary">Salvar configurações</button>
             </footer>
@@ -136,19 +174,58 @@
     <dialog id="parameters-modal" class="config-modal">
         <form id="parameters-form" method="dialog" class="config-modal__content">
             <header class="config-modal__header">
-                <h2>Parâmetros dias</h2>
-                <button type="button" id="close-parameters" class="btn btn--ghost">Fechar</button>
+                <div class="config-modal__title">
+                    <span class="config-modal__badge">Calendário</span>
+                </div>
+                <button type="button" id="close-parameters" class="btn btn--ghost" aria-label="Fechar parâmetros">Fechar</button>
             </header>
-            <div class="config-modal__grid">
-                <label>
-                    <span>Dias normal</span>
-                    <input id="dias-normal" name="diasNormal" type="number" min="0" step="1" placeholder="0" readonly>
+
+            <section class="parameters-modal__overview" aria-label="Resumo dos parâmetros de dias">
+                <div class="parameters-modal__callout" role="group" aria-labelledby="parameters-callout-title">
+                    <span class="parameters-modal__callout-icon" aria-hidden="true">🗓️</span>
+                    <div class="parameters-modal__callout-body">
+                        <p id="parameters-callout-title" class="parameters-modal__callout-title">Dados sincronizados</p>
+                        <p class="parameters-modal__callout-text">Os valores são atualizados automaticamente a partir do calendário operacional mais recente.</p>
+                    </div>
+                </div>
+                <ul class="parameters-modal__tips" aria-label="Boas práticas para acompanhamento">
+                    <li>Acompanhe a diferença entre dias corridos e úteis para ajustar as metas diárias.</li>
+                    <li>Quando novas janelas forem definidas, utilize o botão <strong>Salvar parâmetros</strong> para registrar.</li>
+                </ul>
+            </section>
+
+            <section class="parameters-modal__cards" aria-label="Valores de referência">
+                <label class="parameters-modal__card">
+                    <span class="parameters-modal__card-header">
+                        <span class="parameters-modal__card-icon" aria-hidden="true">🌐</span>
+                        <span>
+                            <span class="parameters-modal__card-title">Dias corridos</span>
+                            <span class="parameters-modal__card-tag">Período completo</span>
+                        </span>
+                    </span>
+                    <div class="parameters-modal__card-input">
+                        <input id="dias-normal" name="diasNormal" type="number" min="0" step="1" placeholder="0" readonly>
+                        <span class="parameters-modal__card-suffix">dias</span>
+                    </div>
+                    <p class="parameters-modal__card-hint">Total de dias consecutivos considerados na janela do inventário.</p>
                 </label>
-                <label>
-                    <span>Dias úteis</span>
-                    <input id="dias-uteis" name="diasUteis" type="number" min="0" step="1" placeholder="0" readonly>
+
+                <label class="parameters-modal__card">
+                    <span class="parameters-modal__card-header">
+                        <span class="parameters-modal__card-icon parameters-modal__card-icon--accent" aria-hidden="true">💼</span>
+                        <span>
+                            <span class="parameters-modal__card-title">Dias úteis</span>
+                            <span class="parameters-modal__card-tag">Disponíveis para contagem</span>
+                        </span>
+                    </span>
+                    <div class="parameters-modal__card-input">
+                        <input id="dias-uteis" name="diasUteis" type="number" min="0" step="1" placeholder="0" readonly>
+                        <span class="parameters-modal__card-suffix">dias</span>
+                    </div>
+                    <p class="parameters-modal__card-hint">Aplica feriados e fins de semana para prever o ritmo de execução.</p>
                 </label>
-            </div>
+            </section>
+
             <footer class="config-modal__footer">
                 <button type="submit" class="btn btn--primary">Salvar parâmetros</button>
             </footer>
