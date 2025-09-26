@@ -337,10 +337,12 @@ body {
 	display: flex;
 	flex-direction: column;
 	gap: 0.7rem;
+	justify-content: space-between;
 	position: relative;
 	overflow: hidden;
 	transform: translateY(0);
 	transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+	min-height: 125px;
 }
 
 
@@ -383,6 +385,36 @@ body {
 .card > * {
 	position: relative;
 	z-index: 1;
+}
+
+
+.card__value {
+	margin-top: auto;
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+	gap: 0.35rem;
+	color: inherit;
+}
+
+.card__value--with-suffix {
+	padding: 0.35rem 0.75rem;
+	border-radius: calc(var(--radius-md) + 4px);
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(226, 232, 240, 0.3));
+	box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.18), inset 0 8px 14px rgba(255, 255, 255, 0.25);
+}
+
+.card__value input {
+	margin-top: 0;
+	min-width: 0;
+	flex: 0 1 auto;
+}
+
+.card__suffix {
+	font-size: clamp(1.05rem, 1.75vw, 1.35rem);
+	font-weight: 700;
+	color: currentColor;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .card label {
@@ -469,6 +501,8 @@ body {
 	letter-spacing: -0.018em;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
 	transition: color 0.2s ease, box-shadow 0.2s ease;
+	text-align: center;
+	margin-top: auto;
 }
 
 .card input::placeholder {
@@ -510,7 +544,9 @@ body {
 }
 
 .card--highlight label,
-.card--highlight input {
+.card--highlight input,
+.card--highlight .card__value,
+.card--highlight .card__suffix {
 	color: #713f12;
 	text-shadow: none;
 }
@@ -523,7 +559,9 @@ body {
 }
 
 .card--warehouse label,
-.card--warehouse input {
+.card--warehouse input,
+.card--warehouse .card__value,
+.card--warehouse .card__suffix {
 	color: #7f1d1d;
 	text-shadow: none;
 }
@@ -536,7 +574,9 @@ body {
 }
 
 .card--goal label,
-.card--goal input {
+.card--goal input,
+.card--goal .card__value,
+.card--goal .card__suffix {
 	color: #78350f;
 	text-shadow: none;
 }
@@ -549,7 +589,9 @@ body {
 }
 
 .card--outlook label,
-.card--outlook input {
+.card--outlook input,
+.card--outlook .card__value,
+.card--outlook .card__suffix {
 	color: #065f46;
 	text-shadow: none;
 }

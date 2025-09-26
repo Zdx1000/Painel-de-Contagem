@@ -72,15 +72,24 @@
             </article>
             <article class="card" data-field="percentualSemContagem">
                 <label for="percentual-sem-contagem">% sem contagem (1ª)</label>
-                <input id="percentual-sem-contagem" name="percentualSemContagem" type="number" min="0" max="100" step="0.01" placeholder="0" readonly>
+                <div class="card__value card__value--with-suffix">
+                    <input id="percentual-sem-contagem" name="percentualSemContagem" type="number" min="0" max="100" step="0.01" placeholder="0" readonly>
+                    <span class="card__suffix" aria-hidden="true">%</span>
+                </div>
             </article>
             <article class="card" data-field="percentualContadoSegunda">
                 <label for="percentual-contado-segunda">% contado 2ª contagem</label>
-                <input id="percentual-contado-segunda" name="percentualContadoSegunda" type="number" min="0" max="100" step="0.01" placeholder="0" readonly>
+                <div class="card__value card__value--with-suffix">
+                    <input id="percentual-contado-segunda" name="percentualContadoSegunda" type="number" min="0" max="100" step="0.01" placeholder="0" readonly>
+                    <span class="card__suffix" aria-hidden="true">%</span>
+                </div>
             </article>
             <article class="card" data-field="percentualSemContagemSegunda">
                 <label for="percentual-sem-contagem-segunda">% sem contagem (2ª)</label>
-                 <input id="percentual-sem-contagem-segunda" name="percentualSemContagemSegunda" type="number" min="0" max="100" step="0.01" placeholder="0" readonly>
+                 <div class="card__value card__value--with-suffix">
+                     <input id="percentual-sem-contagem-segunda" name="percentualSemContagemSegunda" type="number" min="0" max="100" step="0.01" placeholder="0" readonly>
+                     <span class="card__suffix" aria-hidden="true">%</span>
+                 </div>
             </article>
             <article class="card" data-field="skusRestantePrimeira">
                 <label for="skus-restante-primeira">SKU's restante p/ contar 1ª contagem</label>
